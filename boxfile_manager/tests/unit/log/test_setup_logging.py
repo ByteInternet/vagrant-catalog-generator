@@ -1,5 +1,4 @@
-from logging import INFO, DEBUG
-from sys import stdout
+from logging import INFO
 
 from boxfile_manager.log import setup_logging
 from boxfile_manager.tests.testcase import TestCase
@@ -7,42 +6,20 @@ from boxfile_manager.tests.testcase import TestCase
 
 class TestSetupLogging(TestCase):
     def setUp(self):
-        self.getlogger = self.set_up_patch('boxfile_manager.log.getLogger')
-        self.streamhandler = self.set_up_patch('boxfile_manager.log.StreamHandler')
+        self.logging = self.set_up_patch('boxfile_manager.log.logging')
 
     def test_setup_logging_gets_logger(self):
         setup_logging()
 
-        self.getlogger.assert_called_once_with('hypernode-boxfile-manager')
+        self.logging.getLogger.assert_called_once_with('hypernode-boxfile-manager')
 
-    def test_setup_logging_sets_default_logging_level(self):
+    def test_setup_logging_defines_basic_config(self):
         setup_logging()
 
-        self.getlogger.return_value.setLevel.assert_called_once_with(
-            INFO
-        )
-
-    def test_setup_logging_sets_logging_level(self):
-        setup_logging(level=DEBUG)
-
-        self.getlogger.return_value.setLevel.assert_called_once_with(
-            DEBUG
-        )
-
-    def test_setup_logging_configures_streamhandler(self):
-        setup_logging()
-
-        self.streamhandler.assert_called_once_with(stdout)
-
-    def test_setup_logging_adds_console_handler_to_logger(self):
-        setup_logging()
-
-        self.getlogger.return_value.addHandler.assert_called_once_with(
-            self.streamhandler.return_value
-        )
+        self.logging.basicConfig.assert_called_once_with(level=INFO, format='%(message)s')
 
     def test_setup_logging_returns_logger(self):
         ret = setup_logging()
 
-        self.assertEqual(ret, self.getlogger.return_value, ret)
+        self.assertEqual(ret, self.logging.getLogger.return_value)
 

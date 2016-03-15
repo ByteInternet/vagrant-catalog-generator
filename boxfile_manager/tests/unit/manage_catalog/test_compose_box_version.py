@@ -7,7 +7,8 @@ class TestComposeBoxVersion(TestCase):
         self.test_args = (
             '2638',
             'vagrant',
-            'some/boxfile.box',
+            'https://example.com',
+            'boxfile.box',
             '527d7e25b96cbceaacd7819edbb34c9750dca355fd2d4cb288df9a89ee5fdf2a'
         )
 
@@ -19,7 +20,7 @@ class TestComposeBoxVersion(TestCase):
             'providers': [
                 {
                     'name': 'vagrant',
-                    'url': 'http://vagrant.hypernode.com/some/boxfile.box',
+                    'url': 'https://example.com/boxfile.box',
                     'checksum_type': 'sha256',
                     'checksum': '527d7e25b96cbceaacd7819edbb34c9750dca355fd2d4cb288df9a89ee5fdf2a'
                 }
@@ -35,7 +36,7 @@ class TestComposeBoxVersion(TestCase):
             'providers': [
                 {
                     'name': 'vagrant',
-                    'url': 'http://vagrant.hypernode.com/some/boxfile.box',
+                    'url': 'https://example.com/boxfile.box',
                     'checksum_type': 'sha512',
                     'checksum': '527d7e25b96cbceaacd7819edbb34c9750dca355fd2d4cb288df9a89ee5fdf2a'
                 }

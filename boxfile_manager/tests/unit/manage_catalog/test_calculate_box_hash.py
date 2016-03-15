@@ -66,7 +66,7 @@ class TestCalculateBoxHash(TestCase):
         expected_calls = [call(3)] * 4
         self.assertEqual(expected_calls, self.file_handle.read.mock_calls)
 
-    def test_calculate_box_hash_returns_hasher_digest(self):
+    def test_calculate_box_hash_returns_hasher_hexdigest(self):
         ret = calculate_box_hash(self.boxfile, blocksize=1234)
 
-        self.assertEqual(ret, self.hasher.digest.return_value)
+        self.assertEqual(ret, self.hasher.hexdigest.return_value)

@@ -1,9 +1,8 @@
 from re import compile
-from os import listdir, curdir
-
-BOX_PATTERN = compile(r'^hypernode.*.release-.*.box$')
+from os import listdir
 
 
-def list_boxes():
-    dir_files = listdir(curdir)
-    return filter(BOX_PATTERN.match, dir_files)
+def list_boxes(box_name, boxfiles_directory):
+    box_pattern = compile(r'^{}.*.release-.*.box$'.format(box_name))
+    dir_files = listdir(boxfiles_directory)
+    return filter(box_pattern.match, dir_files)

@@ -20,9 +20,9 @@ class TestOnlyKeepRecentBoxes(TestCase):
         ]
 
     def test_only_keep_recent_boxes_removes_boxfiles(self):
-        only_keep_recent_boxes(self.boxes, amount=3)
+        only_keep_recent_boxes('/some/dir', self.boxes, amount=3)
 
-        expected_calls = [call(box) for box in [
+        expected_calls = [call('/some/dir', box) for box in [
             'hypernode.vagrant.release-2635.box',
             'hypernode.vagrant.release-2638.box',
         ]]
@@ -30,9 +30,9 @@ class TestOnlyKeepRecentBoxes(TestCase):
         self.assertEqual(expected_calls, self.remove_boxfile.mock_calls)
 
     def test_only_keep_recent_boxes_removes_checksum(self):
-        only_keep_recent_boxes(self.boxes, amount=3)
+        only_keep_recent_boxes('/some/dir', self.boxes, amount=3)
 
-        expected_calls = [call(box) for box in [
+        expected_calls = [call('/some/dir', box) for box in [
             'hypernode.vagrant.release-2635.box',
             'hypernode.vagrant.release-2638.box',
         ]]
@@ -40,11 +40,11 @@ class TestOnlyKeepRecentBoxes(TestCase):
         self.assertEqual(expected_calls, self.remove_checksum.mock_calls)
 
     def test_only_keep_recent_boxes_doesnt_remove_latest_link(self):
-        only_keep_recent_boxes(self.boxes, amount=0)
+        only_keep_recent_boxes('/some/dir', self.boxes, amount=0)
 
-        self.assertNotIn(call('hypernode.release-latest.box'), self.remove_boxfile.mock_calls)
+        self.assertNotIn(call('/some/dir', 'hypernode.release-latest.box'), self.remove_boxfile.mock_calls)
 
     def test_only_keep_recent_boxes_doesnt_remove_latest_checksum(self):
-        only_keep_recent_boxes(self.boxes, amount=0)
+        only_keep_recent_boxes('/some/dir', self.boxes, amount=0)
 
-        self.assertNotIn(call('hypernode.release-latest.box'), self.remove_checksum.mock_calls)
+        self.assertNotIn(call('/some/dir', 'hypernode.release-latest.box'), self.remove_checksum.mock_calls)
