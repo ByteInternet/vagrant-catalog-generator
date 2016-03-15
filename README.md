@@ -10,7 +10,7 @@ git clone git@github.com:ByteInternet/hypernode-boxfile-manager.git
 cd hypernode-boxfile-manager
 
 # Create virtualenv
-mkvirtualenv -a $(pwd) hypernode-boxfile-manager
+mkvirtualenv -p python3 -a $(pwd) hypernode-boxfile-manager
 echo "export PYTHONPATH=$(pwd)" >> $VIRTUAL_ENV/bin/postactivate
 workon hypernode-boxfile-manager
 
