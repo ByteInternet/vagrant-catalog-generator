@@ -75,13 +75,13 @@ Catalog:
 
 ```
 # Clone repo
-git clone git@github.com:ByteInternet/hypernode-boxfile-manager.git
-cd hypernode-boxfile-manager
+git clone git@github.com:ByteInternet/vagrant-catalog-generator.git
+cd vagrant-catalog-generator
 
 # Create virtualenv
-mkvirtualenv -p python3 -a $(pwd) hypernode-boxfile-manager
+mkvirtualenv -p python3 -a $(pwd) vagrant-catalog-generator
 echo "export PYTHONPATH=$(pwd)" >> $VIRTUAL_ENV/bin/postactivate
-workon hypernode-boxfile-manager
+workon vagrant-catalog-generator
 
 # Install dependencies
 pip install -U pip distribute
