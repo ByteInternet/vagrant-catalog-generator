@@ -2,4 +2,4 @@ language: python
 python:
   - "3.5"
 install: "pip install -r requirements/development.txt"
-script: ./runtests.sh
+script: ./runtests.sh -1
