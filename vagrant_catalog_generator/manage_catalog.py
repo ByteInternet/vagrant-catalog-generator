@@ -4,7 +4,7 @@ from json import dump
 from os import path, stat
 from re import escape, compile
 
-from boxfile_manager.box_list import list_boxes
+from vagrant_catalog_generator.box_list import list_boxes
 
 
 logger = logging.getLogger(__name__)

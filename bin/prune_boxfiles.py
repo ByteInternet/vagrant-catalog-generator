@@ -1,9 +1,9 @@
 from argparse import ArgumentParser
 from os.path import curdir
 
-from boxfile_manager.log import setup_logging
-from boxfile_manager.manage_boxfiles import clean_up_old_boxes
-from boxfile_manager.settings import RECENT_BOX_AMOUNT, BOX_NAME
+from vagrant_catalog_generator.log import setup_logging
+from vagrant_catalog_generator.manage_boxfiles import clean_up_old_boxes
+from vagrant_catalog_generator.settings import RECENT_BOX_AMOUNT, BOX_NAME
 
 
 def parse_args():

@@ -1,12 +1,12 @@
-from boxfile_manager.manage_boxfiles import remove_boxfile
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_boxfiles import remove_boxfile
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestRemoveBoxfile(TestCase):
     def setUp(self):
-        self.path = self.set_up_patch('boxfile_manager.manage_boxfiles.path')
+        self.path = self.set_up_patch('vagrant_catalog_generator.manage_boxfiles.path')
         self.path.join.return_value = '/some/dir/hypernode.vagrant.release-2638.box'
-        self.remove = self.set_up_patch('boxfile_manager.manage_boxfiles.remove')
+        self.remove = self.set_up_patch('vagrant_catalog_generator.manage_boxfiles.remove')
 
     def test_remove_boxfile_gets_box_join(self):
         remove_boxfile('/some/dir', 'hypernode.vagrant.release-2638.box')

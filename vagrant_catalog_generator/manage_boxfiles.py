@@ -1,10 +1,10 @@
 import logging
 from os import remove, path
 
-from boxfile_manager.box_list import list_boxes
-from boxfile_manager.settings import RECENT_BOX_AMOUNT
+from vagrant_catalog_generator.box_list import list_boxes
+from vagrant_catalog_generator.settings import RECENT_BOX_AMOUNT
 
-logger = logging.getLogger('hypernode-boxfile-manager')
+logger = logging.getLogger('vagrant-catalog-generator')
 
 
 def remove_boxfile(boxfiles_directory, box):

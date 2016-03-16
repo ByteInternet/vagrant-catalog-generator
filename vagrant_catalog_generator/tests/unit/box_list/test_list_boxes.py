@@ -1,10 +1,10 @@
-from boxfile_manager.box_list import list_boxes
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.box_list import list_boxes
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestListBoxes(TestCase):
     def setUp(self):
-        self.listdir = self.set_up_patch('boxfile_manager.box_list.listdir')
+        self.listdir = self.set_up_patch('vagrant_catalog_generator.box_list.listdir')
         self.listdir.return_value = [
             'hypernode.vagrant.release-latest.box',
             'hypernode.vagrant.release-latest.box.sha256',

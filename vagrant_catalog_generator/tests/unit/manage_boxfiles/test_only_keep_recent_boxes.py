@@ -1,14 +1,14 @@
 from mock import call
 
-from boxfile_manager.manage_boxfiles import only_keep_recent_boxes
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_boxfiles import only_keep_recent_boxes
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestOnlyKeepRecentBoxes(TestCase):
     def setUp(self):
-        self.remove_boxfile = self.set_up_patch('boxfile_manager.manage_boxfiles.remove_boxfile')
-        self.remove_checksum = self.set_up_patch('boxfile_manager.manage_boxfiles.remove_checksum')
-        self.recent_box_amount = self.set_up_patch('boxfile_manager.manage_boxfiles.RECENT_BOX_AMOUNT')
+        self.remove_boxfile = self.set_up_patch('vagrant_catalog_generator.manage_boxfiles.remove_boxfile')
+        self.remove_checksum = self.set_up_patch('vagrant_catalog_generator.manage_boxfiles.remove_checksum')
+        self.recent_box_amount = self.set_up_patch('vagrant_catalog_generator.manage_boxfiles.RECENT_BOX_AMOUNT')
 
         self.boxes = [
             'hypernode.release-latest.box',

@@ -1,19 +1,19 @@
 from mock import call, Mock
 
-from boxfile_manager.manage_catalog import calculate_box_hash
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_catalog import calculate_box_hash
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestCalculateBoxHash(TestCase):
     def setUp(self):
-        self.open = self.set_up_patch('boxfile_manager.manage_catalog.open')
+        self.open = self.set_up_patch('vagrant_catalog_generator.manage_catalog.open')
         self.open.return_value.__exit__ = lambda a, b, c, d: None
         self.file_handle = Mock()
         self.buffer = list()
         self.file_handle.read.return_value = self.buffer
         self.open.return_value.__enter__ = lambda x: self.file_handle
         self.boxfile = 'hypernode.vagrant.release-2638.box'
-        self.sha256 = self.set_up_patch('boxfile_manager.manage_catalog.sha256')
+        self.sha256 = self.set_up_patch('vagrant_catalog_generator.manage_catalog.sha256')
         self.hasher = self.sha256.return_value
 
     def test_calculate_box_hash_opens_boxfile(self):

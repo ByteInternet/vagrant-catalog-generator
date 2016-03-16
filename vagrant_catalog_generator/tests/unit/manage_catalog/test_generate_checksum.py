@@ -1,18 +1,18 @@
 from mock import Mock
 
-from boxfile_manager.manage_catalog import generate_checksum
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_catalog import generate_checksum
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestGenerateChecksum(TestCase):
     def setUp(self):
-        self.open = self.set_up_patch('boxfile_manager.manage_catalog.open')
+        self.open = self.set_up_patch('vagrant_catalog_generator.manage_catalog.open')
         self.open.return_value.__exit__ = lambda a, b, c, d: None
         self.file_handle = Mock()
         self.open.return_value.__enter__ = lambda x: self.file_handle
         self.boxfile = 'hypernode.vagrant.release-2638.box'
         self.shafile = self.boxfile + '.sha256'
-        self.calculate_box_hash = self.set_up_patch('boxfile_manager.manage_catalog.calculate_box_hash')
+        self.calculate_box_hash = self.set_up_patch('vagrant_catalog_generator.manage_catalog.calculate_box_hash')
 
     def test_generate_checksum_opens_shafile(self):
         generate_checksum(self.shafile, self.boxfile)
