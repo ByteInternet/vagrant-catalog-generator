@@ -1,6 +1,6 @@
-# hypernode-boxfile-manager
+# vagrant-catalog-generator
 
-Tool to generate catalog.json files for the hypernode-vagrant box and the intermediate development box we use internally.
+Generate catalog.json files for Vagrant boxes.
 
 
 ## Usage
@@ -19,7 +19,7 @@ hypernode.vagrant.release-2640.box
 ```
 
 
-Cleaning up old boxfiles
+Cleaning up old releases (optional)
 ```
 python bin/prune_boxfiles.py --directory /dir/to/your/boxfiles --amount 2
 ```
