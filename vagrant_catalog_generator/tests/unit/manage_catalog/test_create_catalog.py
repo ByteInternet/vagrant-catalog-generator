@@ -1,12 +1,12 @@
-from boxfile_manager.manage_catalog import create_catalog
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_catalog import create_catalog
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestCreateCatalog(TestCase):
     def setUp(self):
-        self.list_boxes = self.set_up_patch('boxfile_manager.manage_catalog.list_boxes')
-        self.parse_boxes = self.set_up_patch('boxfile_manager.manage_catalog.parse_boxes')
-        self.write_catalog = self.set_up_patch('boxfile_manager.manage_catalog.write_catalog')
+        self.list_boxes = self.set_up_patch('vagrant_catalog_generator.manage_catalog.list_boxes')
+        self.parse_boxes = self.set_up_patch('vagrant_catalog_generator.manage_catalog.parse_boxes')
+        self.write_catalog = self.set_up_patch('vagrant_catalog_generator.manage_catalog.write_catalog')
 
     def test_create_catalog_lists_boxes(self):
         create_catalog('https://example.com', '/some/dir', 'my vagrant box', 'hypernode')

@@ -1,7 +1,7 @@
 from mock import call
 
-from boxfile_manager.manage_catalog import parse_boxes
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_catalog import parse_boxes
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestParseBoxes(TestCase):
@@ -12,7 +12,7 @@ class TestParseBoxes(TestCase):
             'hypernode.vagrant.release-1066.box',
         ]
 
-        self.generate_box_metadata = self.set_up_patch('boxfile_manager.manage_catalog.generate_box_metadata')
+        self.generate_box_metadata = self.set_up_patch('vagrant_catalog_generator.manage_catalog.generate_box_metadata')
         self.box1_metadata = {
             "version": "2647",
             "providers": [

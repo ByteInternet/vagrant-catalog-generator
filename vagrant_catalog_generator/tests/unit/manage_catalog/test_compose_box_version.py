@@ -1,5 +1,5 @@
-from boxfile_manager.manage_catalog import compose_box_version
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_catalog import compose_box_version
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestComposeBoxVersion(TestCase):

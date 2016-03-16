@@ -1,17 +1,17 @@
 from logging import INFO
 
-from boxfile_manager.log import setup_logging
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.log import setup_logging
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestSetupLogging(TestCase):
     def setUp(self):
-        self.logging = self.set_up_patch('boxfile_manager.log.logging')
+        self.logging = self.set_up_patch('vagrant_catalog_generator.log.logging')
 
     def test_setup_logging_gets_logger(self):
         setup_logging()
 
-        self.logging.getLogger.assert_called_once_with('hypernode-boxfile-manager')
+        self.logging.getLogger.assert_called_once_with('vagrant-catalog-generator')
 
     def test_setup_logging_defines_basic_config(self):
         setup_logging()

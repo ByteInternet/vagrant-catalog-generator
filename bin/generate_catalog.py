@@ -1,8 +1,8 @@
 from argparse import ArgumentParser
 
-from boxfile_manager.log import setup_logging
-from boxfile_manager.manage_catalog import create_catalog
-from boxfile_manager.settings import BASE_URL, BOX_NAME, BOX_DESCRIPTION
+from vagrant_catalog_generator.log import setup_logging
+from vagrant_catalog_generator.manage_catalog import create_catalog
+from vagrant_catalog_generator.settings import BASE_URL, BOX_NAME, BOX_DESCRIPTION
 
 
 def parse_args():

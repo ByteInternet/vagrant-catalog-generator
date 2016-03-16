@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-TEST_PACKAGES="boxfile_manager"
+TEST_PACKAGES="vagrant_catalog_generator"
 
 while getopts "1s" opt; do
     case $opt in
@@ -26,7 +26,7 @@ export PYTHONDONTWRITEBYTECODE=1  # Avoid .pyc files that can mess up coverage
 
 test_cmd="
     echo 'Removing pyc files';\
-    echo 'Running hypernode-box-manager software tests';
+    echo 'Running vagrant-catalog-generator software tests';
     echo $TEST_PACKAGES | xargs -n 1 nosetests --processes=$numprocs;
     echo 'Running PEP8 tests';
     echo $TEST_PACKAGES | xargs -n 1 autopep8 -ri --select E303,E302,E261,E231;

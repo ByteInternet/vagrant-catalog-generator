@@ -1,18 +1,18 @@
-from boxfile_manager.manage_catalog import generate_box_metadata
-from boxfile_manager.tests.testcase import TestCase
+from vagrant_catalog_generator.manage_catalog import generate_box_metadata
+from vagrant_catalog_generator.tests.testcase import TestCase
 
 
 class TestGenerateBoxMetaData(TestCase):
     def setUp(self):
-        self.path = self.set_up_patch('boxfile_manager.manage_catalog.path')
+        self.path = self.set_up_patch('vagrant_catalog_generator.manage_catalog.path')
         self.path.join.return_value = '/some/dir/hypernode.vagrant.release-2638.box'
         self.boxfile = self.path.join.return_value
         self.shafile = self.boxfile + '.sha256'
-        self.stat = self.set_up_patch('boxfile_manager.manage_catalog.stat')
+        self.stat = self.set_up_patch('vagrant_catalog_generator.manage_catalog.stat')
         self.stat.return_value.st_size = 1
-        self.generate_checksum = self.set_up_patch('boxfile_manager.manage_catalog.generate_checksum')
-        self.retrieve_checksum = self.set_up_patch('boxfile_manager.manage_catalog.retrieve_checksum')
-        self.compose_box_version = self.set_up_patch('boxfile_manager.manage_catalog.compose_box_version')
+        self.generate_checksum = self.set_up_patch('vagrant_catalog_generator.manage_catalog.generate_checksum')
+        self.retrieve_checksum = self.set_up_patch('vagrant_catalog_generator.manage_catalog.retrieve_checksum')
+        self.compose_box_version = self.set_up_patch('vagrant_catalog_generator.manage_catalog.compose_box_version')
 
     def test_generate_box_metadata_gets_joined_box_path(self):
         generate_box_metadata('/some/dir', 'hypernode.vagrant.release-2638.box', '2638', 'vagrant',
