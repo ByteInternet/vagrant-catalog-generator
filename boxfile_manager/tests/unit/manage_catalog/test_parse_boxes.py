@@ -1,7 +1,6 @@
 from mock import call
 
 from boxfile_manager.manage_catalog import parse_boxes
-from boxfile_manager.settings import BOX_METADATA
 from boxfile_manager.tests.testcase import TestCase
 
 
@@ -13,11 +12,6 @@ class TestParseBoxes(TestCase):
             'hypernode.vagrant.release-1066.box',
         ]
 
-        self.deepcopy = self.set_up_patch('boxfile_manager.manage_catalog.deepcopy')
-        self.deepcopy.return_value = {
-            'name': 'hypernode',
-            'versions': []
-        }
         self.generate_box_metadata = self.set_up_patch('boxfile_manager.manage_catalog.generate_box_metadata')
         self.box1_metadata = {
             "version": "2647",
@@ -44,27 +38,28 @@ class TestParseBoxes(TestCase):
 
         self.generate_box_metadata.side_effect = [self.box1_metadata, self.box2_metadata]
 
-    def test_parse_boxes_deepcopies_metadata_from_settings(self):
-        parse_boxes(self.boxes)
-
-        self.deepcopy.assert_called_once_with(BOX_METADATA)
-
     def test_parse_boxes_generates_box_metadata_for_all_boxes(self):
-        parse_boxes(self.boxes)
+        parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'my vagrant box', 'hypernode')
 
         expected_calls = [
-            call('hypernode.vagrant.release-1065.box', '1065', 'vagrant'),
-            call('hypernode.vagrant.release-1066.box', '1066', 'vagrant'),
+            call('/some/dir', 'hypernode.vagrant.release-1065.box', '1065',
+                 'vagrant', 'https://example.com'),
+            call('/some/dir', 'hypernode.vagrant.release-1066.box', '1066',
+                 'vagrant', 'https://example.com'),
         ]
+
         self.assertEqual(expected_calls, self.generate_box_metadata.mock_calls)
 
     def test_parse_boxes_returns_box_metadata(self):
-        ret = parse_boxes(self.boxes)
+        ret = parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'my vagrant box', 'hypernode')
 
-        expected_metadata = self.deepcopy.return_value
-        expected_metadata['versions'] = [
-            self.box1_metadata,
-            self.box2_metadata
-        ]
+        expected_metadata = {
+            'description': 'my vagrant box',
+            'name': 'hypernode',
+            'versions': [
+                self.box1_metadata,
+                self.box2_metadata
+            ]
+        }
 
         self.assertEqual(expected_metadata, ret)

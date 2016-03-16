@@ -1,10 +1,8 @@
-from logging import INFO, getLogger, StreamHandler
-from sys import stdout
+import logging
 
 
-def setup_logging(level=INFO):
-    logger = getLogger('hypernode-boxfile-manager')
-    logger.setLevel(level)
-    console_handler = StreamHandler(stdout)
-    logger.addHandler(console_handler)
+def setup_logging(level=logging.INFO):
+    logger = logging.getLogger('hypernode-boxfile-manager')
+    formatter = '%(message)s'
+    logging.basicConfig(level=level, format=formatter)
     return logger

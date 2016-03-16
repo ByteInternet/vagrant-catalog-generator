@@ -1,5 +1,3 @@
-from os import curdir
-
 from boxfile_manager.box_list import list_boxes
 from boxfile_manager.tests.testcase import TestCase
 
@@ -18,12 +16,12 @@ class TestListBoxes(TestCase):
         ]
 
     def test_list_boxes_lists_current_directory(self):
-        list_boxes()
+        list_boxes('hypernode', '/some/dir')
 
-        self.listdir.assert_called_once_with(curdir)
+        self.listdir.assert_called_once_with('/some/dir')
 
     def test_list_boxes_returns_boxes(self):
-        ret = list_boxes()
+        ret = list_boxes('hypernode', '/some/dir')
 
         expected_list = [
             'hypernode.vagrant.release-latest.box',

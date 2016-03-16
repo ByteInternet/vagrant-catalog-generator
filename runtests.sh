@@ -35,7 +35,7 @@ test_cmd="
 find . -type f -name *.pyc -delete
 
 if [ -z $RUN_ONCE ]; then
-	watch -c -n 0.1 -- "$test_cmd"
+	LC_NUMERIC="en_US.UTF-8" watch -c -n 0.1 -- "$test_cmd"
 else
 	sh -ec "$test_cmd"
 fi
