@@ -22,4 +22,4 @@ if __name__ == '__main__':
 
     setup_logging()
 
-    clean_up_old_boxes(args.box_name, args.directory, int(args.amount))
+    clean_up_old_boxes(args.name, args.directory, int(args.amount))
