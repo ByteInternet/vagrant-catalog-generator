@@ -12,6 +12,7 @@ class TestOnlyKeepRecentBoxes(TestCase):
 
         self.boxes = [
             'hypernode.release-latest.box',
+            'hypernode.vagrant.release-1.box',
             'hypernode.vagrant.release-2635.box',
             'hypernode.vagrant.release-2638.box',
             'hypernode.vagrant.release-2653.box',

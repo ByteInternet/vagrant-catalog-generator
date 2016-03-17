@@ -26,7 +26,7 @@ def remove_checksum(boxfiles_directory, box):
 
 
 def only_keep_recent_boxes(boxfiles_directory, boxes, amount=RECENT_BOX_AMOUNT):
-    sorted_boxes = filter(lambda name: 'latest' not in name, sorted(boxes))
+    sorted_boxes = filter(lambda name: 'latest' not in name and not name.endswith('release-1.box'), sorted(boxes))
     old_boxes = list(sorted_boxes)[:-amount]
     for old_box in old_boxes:
         remove_boxfile(boxfiles_directory, old_box)
