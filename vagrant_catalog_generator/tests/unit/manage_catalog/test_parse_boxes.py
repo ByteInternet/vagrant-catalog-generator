@@ -62,4 +62,7 @@ class TestParseBoxes(TestCase):
             ]
         }
 
+        print(ret)
+        print(expected_metadata)
+
         self.assertEqual(expected_metadata, ret)

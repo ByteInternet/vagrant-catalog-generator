@@ -58,22 +58,41 @@ def generate_box_metadata(boxfiles_directory, box, version, provider, base_url):
     return compose_box_version(version, provider, base_url, box, checksum)
 
 
+def combine_provider_versions(box_metadata):
+    versions = dict()
+    for box in box_metadata:
+        version = box['version']
+        if version not in versions:
+            versions[version] = list()
+        versions[version].extend(box['providers'])
+
+    metadata = list()
+    for version in sorted(versions.keys()):
+        metadata.append({
+            'version': version,
+            'providers': versions[version]
+        })
+    return metadata
+
+
 def parse_boxes(boxes, base_url, boxfiles_directory, description, box_name):
     logger.info("Generating metadata")
-    metadata = {'versions': [], 'description': description, 'name': box_name}
+    metadata = {'description': description, 'name': box_name}
     provider_and_version_pattern = compile(r'^{}\.([^.]*)\.release-(.*)\.box$'.format(escape(box_name)))
+    box_metadata = list()
     for box in boxes:
         match = provider_and_version_pattern.search(box)
         if match:
             provider, version = match.groups()
             if version == 'latest':
                 continue
-            metadata['versions'].append(
+            box_metadata.append(
                 generate_box_metadata(boxfiles_directory, box, version, provider, base_url)
             )
         else:
             logger.info('Could not parse version of {}, skipping!'.format(box))
             continue
+    metadata['versions'] = combine_provider_versions(box_metadata)
     return metadata
 
 
