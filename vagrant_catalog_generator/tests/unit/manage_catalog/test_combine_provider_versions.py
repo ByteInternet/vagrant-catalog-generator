@@ -1,4 +1,3 @@
-import json
 from vagrant_catalog_generator.manage_catalog import combine_provider_versions
 from vagrant_catalog_generator.tests.testcase import TestCase
 

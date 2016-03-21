@@ -1,4 +1,5 @@
 import logging
+import re
 from os import remove, path
 
 from vagrant_catalog_generator.box_list import list_boxes
@@ -25,8 +26,13 @@ def remove_checksum(boxfiles_directory, box):
         logger.info('Could not remove old checksum for {}, probably already gone. Skipping'.format(box))
 
 
+def version_getter(box_name):
+    return re.search('release-([0-9]*).box', box_name).group(1)
+
+
 def only_keep_recent_boxes(boxfiles_directory, boxes, amount=RECENT_BOX_AMOUNT):
-    sorted_boxes = filter(lambda name: 'latest' not in name and not name.endswith('release-1.box'), sorted(boxes))
+    non_critical_boxes = filter(lambda name: 'latest' not in name and not name.endswith('release-1.box'), boxes)
+    sorted_boxes = sorted(non_critical_boxes, key=version_getter)
     old_boxes = list(sorted_boxes)[:-amount]
     for old_box in old_boxes:
         remove_boxfile(boxfiles_directory, old_box)
