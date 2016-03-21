@@ -12,30 +12,40 @@ class TestOnlyKeepRecentBoxes(TestCase):
 
         self.boxes = [
             'hypernode.release-latest.box',
-            'hypernode.vagrant.release-1.box',
-            'hypernode.vagrant.release-2635.box',
-            'hypernode.vagrant.release-2638.box',
-            'hypernode.vagrant.release-2653.box',
-            'hypernode.vagrant.release-2659.box',
-            'hypernode.vagrant.release-2674.box'
+            'hypernode.virtualbox.release-1.box',
+            'hypernode.lxc.release-1.box',
+            'hypernode.virtualbox.release-2635.box',
+            'hypernode.lxc.release-2635.box',
+            'hypernode.virtualbox.release-2638.box',
+            'hypernode.lxc.release-2638.box',
+            'hypernode.virtualbox.release-2653.box',
+            'hypernode.lxc.release-2653.box',
+            'hypernode.virtualbox.release-2659.box',
+            'hypernode.lxc.release-2659.box',
+            'hypernode.virtualbox.release-2674.box',
+            'hypernode.lxc.release-2674.box'
         ]
 
     def test_only_keep_recent_boxes_removes_boxfiles(self):
-        only_keep_recent_boxes('/some/dir', self.boxes, amount=3)
+        only_keep_recent_boxes('/some/dir', self.boxes, amount=6)
 
         expected_calls = [call('/some/dir', box) for box in [
-            'hypernode.vagrant.release-2635.box',
-            'hypernode.vagrant.release-2638.box',
+            'hypernode.virtualbox.release-2635.box',
+            'hypernode.lxc.release-2635.box',
+            'hypernode.virtualbox.release-2638.box',
+            'hypernode.lxc.release-2638.box',
         ]]
 
         self.assertEqual(expected_calls, self.remove_boxfile.mock_calls)
 
     def test_only_keep_recent_boxes_removes_checksum(self):
-        only_keep_recent_boxes('/some/dir', self.boxes, amount=3)
+        only_keep_recent_boxes('/some/dir', self.boxes, amount=6)
 
         expected_calls = [call('/some/dir', box) for box in [
-            'hypernode.vagrant.release-2635.box',
-            'hypernode.vagrant.release-2638.box',
+            'hypernode.virtualbox.release-2635.box',
+            'hypernode.lxc.release-2635.box',
+            'hypernode.virtualbox.release-2638.box',
+            'hypernode.lxc.release-2638.box',
         ]]
 
         self.assertEqual(expected_calls, self.remove_checksum.mock_calls)
