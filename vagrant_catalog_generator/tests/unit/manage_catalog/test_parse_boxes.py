@@ -39,7 +39,7 @@ class TestParseBoxes(TestCase):
         self.generate_box_metadata.side_effect = [self.box1_metadata, self.box2_metadata]
 
     def test_parse_boxes_generates_box_metadata_for_all_boxes(self):
-        parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'my vagrant box', 'hypernode')
+        parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'hypernode')
 
         expected_calls = [
             call('/some/dir', 'hypernode.vagrant.release-1065.box', '1065',
@@ -51,18 +51,11 @@ class TestParseBoxes(TestCase):
         self.assertEqual(expected_calls, self.generate_box_metadata.mock_calls)
 
     def test_parse_boxes_returns_box_metadata(self):
-        ret = parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'my vagrant box', 'hypernode')
+        ret = parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'hypernode')
 
-        expected_metadata = {
-            'description': 'my vagrant box',
-            'name': 'hypernode',
-            'versions': [
-                self.box1_metadata,
-                self.box2_metadata
-            ]
-        }
-
-        print(ret)
-        print(expected_metadata)
+        expected_metadata = [
+            self.box1_metadata,
+            self.box2_metadata
+        ]
 
         self.assertEqual(expected_metadata, ret)
