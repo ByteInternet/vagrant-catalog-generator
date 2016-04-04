@@ -75,25 +75,31 @@ def combine_provider_versions(box_metadata):
     return metadata
 
 
-def parse_boxes(boxes, base_url, boxfiles_directory, description, box_name):
+def parse_boxes(boxes, base_url, boxfiles_directory, box_name):
     logger.info("Generating metadata")
-    metadata = {'description': description, 'name': box_name}
     provider_and_version_pattern = compile(r'^{}\.([^.]*)\.release-(.*)\.box$'.format(escape(box_name)))
-    box_metadata = list()
+    boxes_metadata = list()
     for box in boxes:
         match = provider_and_version_pattern.search(box)
         if match:
             provider, version = match.groups()
             if version == 'latest':
                 continue
-            box_metadata.append(
+            boxes_metadata.append(
                 generate_box_metadata(boxfiles_directory, box, version, provider, base_url)
             )
         else:
             logger.info('Could not parse version of {}, skipping!'.format(box))
             continue
-    metadata['versions'] = combine_provider_versions(box_metadata)
-    return metadata
+    return boxes_metadata
+
+
+def generate_metadata(boxes_metadata, box_name, description):
+    return {
+        'description': description,
+        'name': box_name,
+        'versions': combine_provider_versions(boxes_metadata)
+    }
 
 
 def write_catalog(boxfiles_directory, metadata):
@@ -106,5 +112,6 @@ def write_catalog(boxfiles_directory, metadata):
 def create_catalog(base_url, boxfiles_directory, description, box_name):
     logger.info("Generating catalog for box {}".format(box_name))
     boxes = list_boxes(box_name, boxfiles_directory)
-    metadata = parse_boxes(boxes, base_url, boxfiles_directory, description, box_name)
+    boxes_metadata = parse_boxes(boxes, base_url, boxfiles_directory, box_name)
+    metadata = generate_metadata(boxes_metadata, box_name, description)
     write_catalog(boxfiles_directory, metadata)
