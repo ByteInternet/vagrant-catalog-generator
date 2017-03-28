@@ -21,7 +21,8 @@ class TestCreateCatalog(TestCase):
             self.list_boxes.return_value,
             'https://example.com',
             '/some/dir',
-            'hypernode'
+            'hypernode',
+            None
         )
 
     def test_create_catalog_generates_metadata(self):

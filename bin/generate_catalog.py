@@ -14,9 +14,12 @@ def parse_args():
     parser.add_argument('--directory', help="Directory where the boxfiles are.")
     parser.add_argument('--base-url', help="Base url of where the boxfiles are hosted. Default: {}".format(BASE_URL),
                         default=BASE_URL)
-    parser.add_argument('--description', help="Description of the box. Default: {}".
-                        format(BOX_DESCRIPTION),
+    parser.add_argument('--description', help="Description of the box. Default: {}"
+                        .format(BOX_DESCRIPTION),
                         default=BOX_DESCRIPTION)
+    parser.add_argument('--forced_box',
+                        help="Force generation of hash for this box. Default: None",
+                        default=None)
     return parser.parse_args()
 
 if __name__ == '__main__':
@@ -24,4 +27,4 @@ if __name__ == '__main__':
 
     setup_logging()
 
-    create_catalog(args.base_url, args.directory, args.description, args.name)
+    create_catalog(args.base_url, args.directory, args.description, args.name, args.forced_box)
