@@ -48,6 +48,12 @@ class TestGenerateBoxMetaData(TestCase):
 
         self.generate_checksum.assert_called_once_with(self.shafile, self.boxfile)
 
+    def test_generate_box_metadata_generates_checksum_if_forced(self):
+        generate_box_metadata('/some/dir', 'hypernode.vagrant.release-2638.box', '2638', 'vagrant',
+                              'https://example.com', force_generate=True)
+
+        self.generate_checksum.assert_called_once_with(self.shafile, self.boxfile)
+
     def test_generate_box_metadata_doesnt_generate_checksum_if_shafile_exists(self):
         generate_box_metadata('/some/dir', 'hypernode.vagrant.release-2638.box', '2638', 'vagrant',
                               'https://example.com')
