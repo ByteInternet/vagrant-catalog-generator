@@ -43,9 +43,21 @@ class TestParseBoxes(TestCase):
 
         expected_calls = [
             call('/some/dir', 'hypernode.vagrant.release-1065.box', '1065',
-                 'vagrant', 'https://example.com'),
+                 'vagrant', 'https://example.com', False),
             call('/some/dir', 'hypernode.vagrant.release-1066.box', '1066',
-                 'vagrant', 'https://example.com'),
+                 'vagrant', 'https://example.com', False),
+        ]
+
+        self.assertEqual(expected_calls, self.generate_box_metadata.mock_calls)
+
+    def test_parse_boxes_forces_generation_of_hash_on_selected_box(self):
+        parse_boxes(self.boxes, 'https://example.com', '/some/dir', 'hypernode', '1066')
+
+        expected_calls = [
+            call('/some/dir', 'hypernode.vagrant.release-1065.box', '1065',
+                 'vagrant', 'https://example.com', False),
+            call('/some/dir', 'hypernode.vagrant.release-1066.box', '1066',
+                 'vagrant', 'https://example.com', True),
         ]
 
         self.assertEqual(expected_calls, self.generate_box_metadata.mock_calls)

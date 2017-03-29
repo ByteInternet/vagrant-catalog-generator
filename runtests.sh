@@ -29,7 +29,7 @@ test_cmd="
     echo 'Running vagrant-catalog-generator software tests';
     echo $TEST_PACKAGES | xargs -n 1 nosetests --processes=$numprocs;
     echo 'Running PEP8 tests';
-    echo $TEST_PACKAGES | xargs -n 1 autopep8 -ri --select E303,E302,E261,E231;
+    pep8 bin $TEST_PACKAGES --ignore=E501,W292,W391
 "
 
 find . -type f -name *.pyc -delete
@@ -39,4 +39,3 @@ if [ -z $RUN_ONCE ]; then
 else
 	sh -ec "$test_cmd"
 fi
-
